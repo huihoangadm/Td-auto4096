@@ -1,19 +1,26 @@
 (async () => {
   const CONFIG_URL = "https://raw.githubusercontent.com/huhoangadm/Td-auto4096/main/config.json";
-
-  // --- Tải mật khẩu từ GitHub ---
+  
+  // Tải mật khẩu từ GitHub
   const res = await fetch(CONFIG_URL);
   const cfg = await res.json();
 
-  const pass = prompt("🔐 Nhập mật khẩu để chạy tool:");
-  if (pass !== cfg.password) {
-    alert("❌ Sai mật khẩu!");
-    throw new Error("Wrong password");
-  }
+  // Nhập mật khẩu từ console
+  const readline = require('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
-  alert("✅ Mật khẩu đúng! Tool đang khởi chạy...");
-
-  // --- Code tool của bạn ---
-  console.log("%cTool 2048 Auto Test đang hoạt động...", "color: lime; font-weight: 700;");
-  // Bạn có thể dán toàn bộ code 2048 auto bot của bạn ở đây ↓↓↓
+  rl.question('🔐 Nhập mật khẩu để tiếp tục: ', (inputPassword) => {
+    if (inputPassword === cfg.password) {
+      console.log("✅ Mật khẩu đúng!");
+      // Bắt đầu chạy tool 2048
+      console.log("Tool 2048 auto bắt đầu chạy...");
+      // (Code chạy game 2048 tự động ở đây)
+    } else {
+      console.log("❌ Sai mật khẩu!");
+    }
+    rl.close();
+  });
 })();
